@@ -1,0 +1,9 @@
+.container {
+  width: 340px;
+  margin-left: 0;
+  border: 1px solid tomato;
+}
+
+.contactList {
+  padding: 0;
+}

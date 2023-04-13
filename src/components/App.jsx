@@ -4,6 +4,8 @@ import { Contacts } from './Contacts/Contacts';
 import { Filter } from './Filter/Filter';
 import css from './App.module.css';
 
+const LS_KEY = 'phonebook';
+
 export class App extends Component {
   state = {
     contacts: [
@@ -14,6 +16,20 @@ export class App extends Component {
     ],
     filter: '',
   };
+
+  componentDidMount() {
+    if (localStorage.getItem(LS_KEY) !== null) {
+      // localStorage.removeItem(LS_KEY);
+      const savedState = JSON.parse(localStorage.getItem(LS_KEY));
+      this.setState({ contacts: savedState });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts.length !== this.state.contacts.length) {
+      localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts));
+    }
+  }
 
   addUser = newItem => {
     const decisionForAdd = this.isIncludingName(
